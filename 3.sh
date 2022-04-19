@@ -18,9 +18,8 @@ while IFS= read -r line; do
     ((i=i+1))
 done < "$1"
 
-uniques=$(grep -o -E '\w+' "$1")
-
-for word in $uniques
+words=$(grep -o -E '\w+' "$1" | awk '!lineCntr[$0]++')
+for word in $words
 do
     freq=$(grep -o "$word" "$1" | wc -l)
     if [ "$freq" -gt 1 ]
