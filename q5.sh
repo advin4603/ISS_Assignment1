@@ -10,13 +10,19 @@ result=""
 for (( i=0; i<${#rev}; i++ )); do
   char="${rev:$i:1}"
   
-  if [[ $char =~ [a-zA-Z] ]]
+  if [[ $char =~ [a-yA-Y] ]]
   then
     printf -v ord '%d' "'$char"
     ((ord++))
     printf -v fmt '\\x%x' "$ord"
     printf -v nextChar "$fmt"
     result+=$nextChar
+  elif [[ $char =~ [z] ]]
+  then
+    result+="a"
+  elif [[ $char =~ [Z] ]]
+  then
+    result+="A"
   else
     result+=$char
   fi
